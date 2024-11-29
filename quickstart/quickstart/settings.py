@@ -76,8 +76,13 @@ WSGI_APPLICATION = 'quickstart.wsgi.application'
 # You'll modify the 'default' entry below to connect to Snowflake instead
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django_snowflake',
+        'NAME': 'DJANGO',
+        'SCHEMA': 'PUBLIC',
+        'WAREHOUSE': 'COMPUTE_WH',
+        'USER': 'alex',
+        'PASSWORD': 'reDbanana20!',
+        'ACCOUNT': 'wq99453.us-east-2.aws'
     }
 }
 
