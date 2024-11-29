@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -23,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'YOUR_SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default="FALSE")
 
 ALLOWED_HOSTS = []
 
@@ -76,13 +80,13 @@ WSGI_APPLICATION = 'quickstart.wsgi.application'
 # You'll modify the 'default' entry below to connect to Snowflake instead
 DATABASES = {
     'default': {
-        'ENGINE': 'django_snowflake',
-        'NAME': 'DJANGO',
-        'SCHEMA': 'PUBLIC',
-        'WAREHOUSE': 'COMPUTE_WH',
-        'USER': 'alex',
-        'PASSWORD': 'reDbanana20!',
-        'ACCOUNT': 'wq99453.us-east-2.aws'
+        'ENGINE': env('DATABASE_ENGINE'),
+        'NAME': env('DATABASE_NAME'),
+        'SCHEMA': env('DATABASE_SCHEMA'),
+        'WAREHOUSE': env('DATABASE_WAREHOUSE'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'ACCOUNT': env('DATABASE_ACCOUNT')
     }
 }
 
